@@ -18,5 +18,19 @@
     <ClCompile Include="MilitaryChess.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Chessboard.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chessboard.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Agent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
