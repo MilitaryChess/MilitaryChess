@@ -1,22 +1,51 @@
 /**
 * @file			Chessboard.h
-* @brief        ChessboardÀàµÄÉùÃ÷Í·ÎÄ¼ş
-* @details		ChessboardÀàÖ÷ÒªÊÇ´æ´¢×ÅÆåÅÌÖĞµÄĞÅÏ¢µÄÀà
-* @author       Bay
-* @date			2020.04.08
-* @version		0.0.1
+* @brief        Chessboardç±»çš„å£°æ˜å¤´æ–‡ä»¶
+* @details		Chessboardç±»ä¸»è¦æ˜¯å­˜å‚¨ç€æ£‹ç›˜ä¸­çš„ä¿¡æ¯çš„ç±»
+* @author       niey
+* @date			2020.04.10
+* @version		0.0.2
 * @par Copyright (c):
 *       MilitaryChess
 * @par History:
-*   0.0.1: Bay, 2020.04.08, ´´½¨ÎÄµµ\n
+*   0.0.1: Bay, 2020.04.08, ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½\n
+*   0.0.2: niey, 2020.04.10, åˆ›å»ºæ–‡æ¡£\n
 */
 #pragma once
-#include "utils.h"
+#include "utils.h"#pragma once
+#include <utility>
+using namespace std;
+
 /**
- * Æå×ÓµÄÒÆ¶¯·½Ê½
- * movable		¿ÉÒÔÒÆ¶¯
- * inmovable	²»ÄÜÒÆ¶¯
- * sapper		¹¤±ø
+ * æ£‹æ ¼çš„ç±»å‹
+ * kStation		å…µç«™
+ * kCamp		è¡Œè¥
+ * kBaseCamp	å¤§æœ¬è¥
+ * kMountain	å±±ç•Œ
+ */
+enum CheckType {
+	kStation,
+	kCamp,
+	kBaseCamp,
+	kMountain
+};
+
+/**
+ * è·¯çº¿çš„ç±»å‹
+ * kNone		ç”¨äºæ²¡æœ‰è·¯çº¿æ—¶çš„èµ‹å€¼
+ * kHighway		å…¬è·¯çº¿
+ * kRailway		é“è·¯çº¿
+ */
+enum WayType {
+	kNone,
+	kHighway,
+	kRailway
+};
+/**
+ * ï¿½ï¿½ï¿½Óµï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê½
+ * movable		ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+ * inmovable	ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+ * sapper		ï¿½ï¿½ï¿½ï¿½
  */
 enum MOVABILITY {
 	movable,
@@ -25,11 +54,11 @@ enum MOVABILITY {
 };
 
 /**
- * Æå×ÓµÄÀàĞÍ
- * flag		¾üÆì
- * landmine	µØÀ×
- * dynamite	Õ¨µ¯
- * troop	¾ü¶Ó
+ * ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+ * flag		ï¿½ï¿½ï¿½ï¿½
+ * landmine	ï¿½ï¿½ï¿½ï¿½
+ * dynamite	Õ¨ï¿½ï¿½
+ * troop	ï¿½ï¿½ï¿½
  */
 enum TYPE {
 	flag,
@@ -39,110 +68,110 @@ enum TYPE {
 };
 
 /**
- * ÕóÓª
- * B	ºÚ·½
- * R	ºì·½
+ * ï¿½ï¿½Óª
+ * B	ï¿½Ú·ï¿½
+ * R	ï¿½ì·½
  */
 enum SIDE {
 	B,
 	R
 };
 /**
- * Æå×ÓÀà
- * ÊôĞÔ
- *	priority	Æå×ÓµÄÓÅÏÈ¼¶
- *	movability	Æå×ÓµÄÒÆ¶¯·½Ê½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½
+ *	priority	ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½È¼ï¿½
+ *	movability	ï¿½ï¿½ï¿½Óµï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê½
  *	type
  */
 class Chess
 {
 public:
-	int priority = 0;/// ¸ÃÆå×ÓµÄÓÅÏÈ¼¶ 0ÎªÌØÊâÖÖÀàµÄÆå×Ó£¬¾ü¶ÓÖÖÀàµÄÆå×Ó´Ó1¿ªÊ¼ÅÅĞò
-	MOVABILITY movablity;/// ¸ÃÆå×ÓµÄÒÆ¶¯·½Ê½
-	TYPE type;/// ¸ÃÆå×ÓµÄÀàĞÍ
-	SIDE side;/// ¸ÃÆå×ÓµÄÕóÓª
+	int priority = 0;/// ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½È¼ï¿½ 0Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó´ï¿½1ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
+	MOVABILITY movablity;/// ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Ê½
+	TYPE type;/// ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½ï¿½
+	SIDE side;/// ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½Óª
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * ChessÀàµÄ¹¹Ôìº¯Êı
-	 * @param[in]   chess	ÊäÈëµÄÆå×ÓµÄÃû³Æ
+	 * ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	 * Chessï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
+	 * @param[in]   chess	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½
 	 * @param[out]  outArgName output argument description.
-	 * @retval  OK  ³É¹¦
-	 * @retval  ERROR   ´íÎó
-	 * @par ±êÊ¶·û
-	 *      ±£Áô
-	 * @par ÆäËü
-	 *      ÎŞ
+	 * @retval  OK  ï¿½É¹ï¿½
+	 * @retval  ERROR   ï¿½ï¿½ï¿½ï¿½
+	 * @par ï¿½ï¿½Ê¶ï¿½ï¿½
+	 *      ï¿½ï¿½ï¿½ï¿½
+	 * @par ï¿½ï¿½ï¿½ï¿½
+	 *      ï¿½ï¿½
 	 * @par History:
-	 *      Bay 2020.04.08 ´´½¨\n
+	 *      Bay 2020.04.08 ï¿½ï¿½ï¿½ï¿½\n
 	 */
 	Chess(char name)
 	{
 		CASE cas;
-		check_case(name, cas);/// ¼ì²éside
+		check_case(name, cas);/// ï¿½ï¿½ï¿½side
 		if (cas == upper)
 			side = R;
 		else if (cas == lower)
 			side = B;
 		else
-			throw "¸ÃÆå×Ó²»ÊÇ´óĞ´»òĞ¡Ğ´×ÖÄ¸";
-		to_lower_case(name);/// ¶¼±ä³ÉĞ¡Ğ´£¬±ãÓÚ´¦Àí
+			throw "ï¿½ï¿½ï¿½ï¿½ï¿½Ó²ï¿½ï¿½Ç´ï¿½Ğ´ï¿½ï¿½Ğ¡Ğ´ï¿½ï¿½Ä¸";
+		to_lower_case(name);/// ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½
 		switch (name) {
-		case 'f':///¾üÆì
+		case 'f':///ï¿½ï¿½ï¿½ï¿½
 			priority = 0;
 			movablity = inmovable;
 			type = flag;
 			break;
-		case 'd':/// µØÀ×
+		case 'd':/// ï¿½ï¿½ï¿½ï¿½
 			priority = 0;
 			movablity = inmovable;
 			type = landmine;
 			break;
-		case 'z':/// Õ¨µ¯
+		case 'z':/// Õ¨ï¿½ï¿½
 			priority = 0;
 			movablity = movable;
 			type = dynamite;
 			break;
-		case 'g':/// ¹¤±ø
+		case 'g':/// ï¿½ï¿½ï¿½ï¿½
 			priority = 1;
 			movablity = sapper;
 			type = troop;
 			break;
-		case 'p':/// ÅÅ³¤
+		case 'p':/// ï¿½Å³ï¿½
 			priority = 2;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'l':/// Á¬³¤
+		case 'l':/// ï¿½ï¿½ï¿½
 			priority = 3;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'y':/// Óª³¤
+		case 'y':/// Óªï¿½ï¿½
 			priority = 4;
 			movablity = movable;
 			type = troop;
 			break;
-		case 't':/// ÍÅ³¤
+		case 't':/// ï¿½Å³ï¿½
 			priority = 5;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'v':/// ÂÃ³¤
+		case 'v':/// ï¿½Ã³ï¿½
 			priority = 6;
 			movablity = movable;
 			type = troop;
 			break;
-		case 's':/// Ê¦³¤
+		case 's':/// Ê¦ï¿½ï¿½
 			priority = 7;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'j':/// ¾ü³¤
+		case 'j':/// ï¿½ï¿½
 			priority = 8;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'a':/// Ë¾Áî
+		case 'a':/// Ë¾ï¿½ï¿½
 			priority = 9;
 			movablity = movable;
 			type = troop;
@@ -158,19 +187,414 @@ public:
 class Chessboard
 {
 	/**
-	 * ¹¹Ôìº¯Êı
-	 * ChessboardÀàµÄ¹¹Ôìº¯Êı
+	 * ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	 * Chessboardï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½
 	 * @param[in]   inArgName input argument description.
 	 * @param[out]  outArgName output argument description.
-	 * @retval  OK  ³É¹¦
-	 * @retval  ERROR   ´íÎó
-	 * @par ±êÊ¶·û
-	 *      ±£Áô
-	 * @par ÆäËü
-	 *      ÎŞ
+	 * @retval  OK  ï¿½É¹ï¿½
+	 * @retval  ERROR   ï¿½ï¿½ï¿½ï¿½
+	 * @par ï¿½ï¿½Ê¶ï¿½ï¿½
+	 *      ï¿½ï¿½ï¿½ï¿½
+	 * @par ï¿½ï¿½ï¿½ï¿½
+	 *      ï¿½ï¿½
 	 * @par History:
-	 *      Bay 2020.04.08 ´´½¨\n
+	 *      Bay 2020.04.08 ï¿½ï¿½ï¿½ï¿½\n
 	 */
 	Chessboard();
+
+/**
+ * æŸä¸ªæ–¹å‘ä¸Šè·¯çº¿çš„ä¿¡æ¯
+ * is_pass		è¯¥æ–¹å‘æ˜¯å¦æœ‰è·¯çº¿
+ * way_type		è·¯çº¿çš„ç±»å‹
+ */
+struct Way {
+	bool is_pass;
+	WayType way_type;
 };
 
+/**
+ * æ£‹æ ¼ç±»
+ * type_		æ£‹æ ¼ç±»å‹
+ * up			æ­£ä¸Šæ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * down			æ­£ä¸‹æ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * left			æ­£å·¦æ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * right		æ­£å³æ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * left_up		å·¦ä¸Šæ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * right_up		å³ä¸Šæ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * left_down	å·¦ä¸‹æ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ * right_down	å³ä¸‹æ–¹å‘çš„è·¯çº¿ä¿¡æ¯
+ */
+class Check
+{
+protected:
+	CheckType type_;
+	Way up;
+	Way down;
+	Way left;
+	Way right;
+	Way left_up;
+	Way right_up;
+	Way left_down;
+	Way right_down;
+public:
+	Check(pair<char, int> pos)
+	{
+		if (pos.first == 'a' && (pos.second == 1 || pos.second == 3)) { /// çº¢æ–¹å¤§æœ¬è¥
+			type_ = kBaseCamp;
+			up = { true, kHighway };
+			down = { false, kNone };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'm' && (pos.second == 1 || pos.second == 3)) { /// é»‘æ–¹å¤§æœ¬è¥
+			type_ = kBaseCamp;
+			up = { false, kNone };
+			down = { true, kHighway };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'c' || pos.first == 'e' || pos.first == 'i' || pos.first == 'k')
+			&& (pos.second == 1 || pos.second == 3)) { /// çº¢ã€é»‘æ–¹è¡Œè¥
+			type_ = kCamp;
+			up = { true, kHighway };
+			down = { true, kHighway };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { true, kHighway };
+			right_up = { true, kHighway };
+			left_down = { true, kHighway };
+			right_down = { true, kHighway };
+		}
+		else if (pos.first == 'a' && pos.second == 0) { /// çº¢æ–¹æœ€åº•å·¦è¾¹å…µç«™
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { false, kNone };
+			left = { false, kNone };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'a' && pos.second == 2) { /// çº¢æ–¹æœ€åº•ä¸­é—´å…µç«™
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { false, kNone };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'a' && pos.second == 4) { /// çº¢æ–¹æœ€åº•å³è¾¹å…µç«™
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { false, kNone };
+			left = { true, kHighway };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'm' && pos.second == 0) { /// é»‘æ–¹æœ€åº•å·¦è¾¹å…µç«™
+			type_ = kStation;
+			up = { false, kNone };
+			down = { true, kHighway };
+			left = { false, kNone };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'm' && pos.second == 2) { /// é»‘æ–¹æœ€åº•ä¸­é—´å…µç«™
+			type_ = kStation;
+			up = { false, kNone };
+			down = { true, kHighway };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'm' && pos.second == 4) { /// é»‘æ–¹æœ€åº•å³è¾¹å…µç«™
+			type_ = kStation;
+			up = { false, kNone };
+			down = { true, kHighway };
+			left = { true, kHighway };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'c' || pos.first == 'e' || pos.first == 'i' || pos.first == 'k') && pos.second == 2
+			|| (pos.first == 'd' || pos.first == 'j') && (pos.second == 1 || pos.second == 3)
+			) { /// çº¢ã€é»‘æ–¹å¤¹åœ¨è¡Œè¥é—´çš„å…µç«™ c2, d1, d3, e2, i2, j1, j3, k2
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kHighway };
+			left = { true, kHighway };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'b' && pos.second == 0) { /// çº¢æ–¹å…µç«™ b0
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kHighway };
+			left = { false, kNone };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { true, kHighway };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'b' || pos.first == 'l') && (pos.second == 1 || pos.second == 3)) { /// çº¢æ–¹å…µç«™ b1, b3 é»‘æ–¹å…µç«™ l1, l3
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'b' && pos.second == 2) { /// çº¢æ–¹å…µç«™ b2
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { true, kHighway };
+			right_up = { true, kHighway };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'b' && pos.second == 4) { /// çº¢æ–¹å…µç«™ b4
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { false, kNone };
+			left_up = { true, kHighway };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'l' && pos.second == 0) { /// é»‘æ–¹å…µç«™ l0
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { true, kHighway };
+		}
+		else if (pos.first == 'l' && pos.second == 2) { /// é»‘æ–¹å…µç«™ l2
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { true, kHighway };
+			right_down = { true, kHighway };
+		}
+		else if (pos.first == 'l' && pos.second == 4) { /// é»‘æ–¹å…µç«™ l4
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kRailway };
+			left = { true, kRailway };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { true, kHighway };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'c' || pos.first == 'e' || pos.first == 'i' || pos.first == 'k')
+			&& pos.second == 0) { /// çº¢ã€é»‘æ–¹å…µç«™ c0, e0, i0, k0
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'c' || pos.first == 'e' || pos.first == 'i' || pos.first == 'k')
+			&& pos.second == 4) { /// çº¢ã€é»‘æ–¹å…µç«™ c4, e4, i4, k4
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { true, kHighway };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if ((pos.first == 'd' || pos.first == 'j') && pos.second == 0) { /// çº¢ã€é»‘æ–¹å…µç«™ d0, j0
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { true, kHighway };
+			left_up = { false, kNone };
+			right_up = { true, kHighway };
+			left_down = { false, kNone };
+			right_down = { true, kHighway };
+		}
+		else if ((pos.first == 'd' || pos.first == 'j') && pos.second == 4) { /// çº¢ã€é»‘æ–¹å…µç«™ d4, j4
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { true, kHighway };
+			right = { false, kNone };
+			left_up = { true, kHighway };
+			right_up = { false, kNone };
+			left_down = { true, kHighway };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'f' && pos.second == 0) { /// çº¢æ–¹å…µç«™ f0
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { true, kHighway };
+		}
+		else if (pos.first == 'f' && pos.second == 2) { /// çº¢æ–¹å…µç«™ f2
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { true, kHighway };
+			right_down = { true, kHighway };
+		}
+		else if (pos.first == 'f' && pos.second == 4) { /// çº¢æ–¹å…µç«™ f4
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { true, kRailway };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { true, kHighway };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'f' && (pos.second == 1 || pos.second == 3)) { /// çº¢æ–¹å…µç«™ f1, f3
+			type_ = kStation;
+			up = { false, kNone };
+			down = { true, kHighway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'h' && pos.second == 0) { /// é»‘æ–¹å…µç«™ h0
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { true, kHighway };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'h' && pos.second == 2) { /// é»‘æ–¹å…µç«™ h2
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { true, kRailway };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { true, kHighway };
+			right_up = { true, kHighway };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'h' && pos.second == 4) { /// é»‘æ–¹å…µç«™ h4
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { true, kRailway };
+			right = { false, kNone };
+			left_up = { true, kHighway };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'h' && (pos.second == 1 || pos.second == 3)) { /// é»‘æ–¹å…µç«™ h1, h3
+			type_ = kStation;
+			up = { true, kHighway };
+			down = { false, kNone };
+			left = { true, kRailway };
+			right = { true, kRailway };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'g' && (pos.second == 0 || pos.second == 2 || pos.second == 4)) { /// å‰çº¿
+			type_ = kStation;
+			up = { true, kRailway };
+			down = { true, kRailway };
+			left = { false, kNone };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else if (pos.first == 'g' && (pos.second == 1 || pos.second == 3)) { /// å±±ç•Œ
+			type_ = kStation;
+			up = { false, kNone };
+			down = { false, kNone };
+			left = { false, kNone };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+		else { /// å…¶ä»–
+			type_ = kStation;
+			up = { false, kNone };
+			down = { false, kNone };
+			left = { false, kNone };
+			right = { false, kNone };
+			left_up = { false, kNone };
+			right_up = { false, kNone };
+			left_down = { false, kNone };
+			right_down = { false, kNone };
+		}
+	}
+};
