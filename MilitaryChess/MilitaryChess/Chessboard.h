@@ -16,6 +16,7 @@
 #include <utility>
 #include <array>
 #include <string>
+#include <iostream>
 using namespace std;
 
 /**
@@ -25,7 +26,7 @@ using namespace std;
  * kBaseCamp	大本营
  * kMountain	山界
  */
-enum CheckType {
+enum class CheckType {
 	kStation,
 	kCamp,
 	kBaseCamp,
@@ -33,16 +34,66 @@ enum CheckType {
 };
 
 /**
+ * 重载CheckType输出
+ * 重载CheckType输出运算符以查看CheckType类型
+ * @param[in]   out		输出流，C		枚举类型CheckType
+ * @param[out]  out		输出流
+ * @par History:
+ *      nie-y 2020.04.10 创建\n
+ */
+inline ostream& operator<<(ostream& out, const CheckType& C) {
+	switch (C) {
+		case CheckType::kStation:
+			out << "S";
+			break;
+		case CheckType::kCamp:
+			out << "C";
+			break;
+		case CheckType::kBaseCamp:
+			out << "B";
+			break;
+		case CheckType::kMountain:
+			out << "M";
+			break;
+	}
+	return out;
+}
+
+/**
  * 路线的类型
  * kNone		用于没有路线时的赋值
  * kHighway		公路线
  * kRailway		铁路线
  */
-enum WayType {
+enum class WayType {
 	kNone,
 	kHighway,
 	kRailway
 };
+
+/**
+ * 重载WayType输出
+ * 重载WayType输出运算符以查看WayType类型
+ * @param[in]   out		输出流，W		枚举类型WayType
+ * @param[out]  out		输出流
+ * @par History:
+ *      nie-y 2020.04.10 创建\n
+ */
+inline ostream& operator<<(ostream& out, const WayType& W) {
+	switch (W) {
+	case WayType::kNone:
+		cout << " ";
+		break;
+	case WayType::kHighway:
+		out << ".";
+		break;
+	case WayType::kRailway:
+		out << "*";
+		break;
+	}
+	return out;
+}
+
 /**
  * 是否可以移动
  * movable		可以移动
@@ -148,6 +199,26 @@ public:
 	 */
 	STATUS assign(pair<char, int> pos);
 	
+	/**
+	 * 输出函数
+	 * 输出Check类数据成员的值，主要用于测试/调试
+	 * @param[in]   None
+	 * @param[out]  None
+	 * @par History:
+	 *      nie-y 2020.04.10 创建\n
+	 */
+	void output1()
+	{
+		cout << left_up.way_type  << " " << up.way_type << " " << right_up.way_type << " ";
+	}
+	void output2()
+	{
+		cout << left.way_type << " " << type_ << " " << right.way_type << " ";
+	}
+	void output3()
+	{
+		cout << left_down.way_type << " " << down.way_type << " " << right_down.way_type << " ";
+	}
 };
 
 /**
