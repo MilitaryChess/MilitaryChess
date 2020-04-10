@@ -269,7 +269,7 @@ public:
 	 * @par History:
 	 *      nie-y 2020.04.10 创建\n
 	 */
-	void assign(pair<char, int> pos)
+	STATUS assign(pair<char, int> pos)
 	{
 		if (pos.first == 'a' && (pos.second == 1 || pos.second == 3)) { /// 红方大本营
 			type_ = CheckType::kBaseCamp;
@@ -617,17 +617,10 @@ public:
 			left_down = { false, WayType::kNone };
 			right_down = { false, WayType::kNone };
 		}
-		else { /// 其他
-			type_ = CheckType::kStation;
-			up = { false, WayType::kNone };
-			down = { false, WayType::kNone };
-			left = { false, WayType::kNone };
-			right = { false, WayType::kNone };
-			left_up = { false, WayType::kNone };
-			right_up = { false, WayType::kNone };
-			left_down = { false, WayType::kNone };
-			right_down = { false, WayType::kNone };
-		}
+		else /// 其他
+			return ERROR;
+
+		return OK;
 	}
 	
 	/**
