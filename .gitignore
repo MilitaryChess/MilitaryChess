@@ -1,3 +1,5 @@
 *.docx
 
-MilitaryChess/.vs
+./MilitaryChess/.vs
+./MilitaryChess/x64
+./MilitaryChess/MilitaryChess/x64
