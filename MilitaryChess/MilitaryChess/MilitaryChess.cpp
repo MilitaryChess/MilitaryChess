@@ -2,10 +2,11 @@
 //
 
 #include <iostream>
+#include "test.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	test_main();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
