@@ -1,14 +1,14 @@
 /**
 * @file			test.cpp
-* @brief        测试
-* @details		测试已经写好的类
+* @brief        娴嬭瘯
+* @details		娴嬭瘯宸茬粡鍐欏ソ鐨勭被
 * @author       Bay
 * @date			2020.04.10
 * @version		0.0.1
 * @par Copyright (c):
 *       MilitaryChess
 * @par History:
-*   0.0.1: Bay, 2020.04.10, 创建文档\n
+*   0.0.1: Bay, 2020.04.10, 鍒涘缓鏂囨。\n
 */
 #include <utility>
 #include <array>
