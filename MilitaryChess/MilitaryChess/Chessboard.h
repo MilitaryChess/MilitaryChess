@@ -8,7 +8,7 @@
 * @par Copyright (c):
 *       MilitaryChess
 * @par History:
-*   0.0.1: Bay, 2020.04.08, �����ĵ�\n
+*   0.0.1: Bay, 2020.04.08, 创建文档\n
 *   0.0.2: niey, 2020.04.10, 创建文档\n
 */
 #pragma once
@@ -42,10 +42,10 @@ enum WayType {
 	kRailway
 };
 /**
- * ���ӵ��ƶ���ʽ
- * movable		�����ƶ�
- * inmovable	�����ƶ�
- * sapper		����
+ * 是否可以移动
+ * movable		可以移动
+ * inmovable	不能移动
+ * sapper		工兵
  */
 enum MOVABILITY {
 	movable,
@@ -54,11 +54,11 @@ enum MOVABILITY {
 };
 
 /**
- * ���ӵ�����
- * flag		����
- * landmine	����
- * dynamite	ը��
- * troop	���
+ * 棋子类型
+ * flag		军旗
+ * landmine	地雷
+ * dynamite	炸弹
+ * troop	军队
  */
 enum TYPE {
 	flag,
@@ -68,110 +68,104 @@ enum TYPE {
 };
 
 /**
- * ��Ӫ
- * B	�ڷ�
- * R	�췽
+ * 阵营
+ * B	黑方
+ * R	红方
  */
 enum SIDE {
 	B,
 	R
 };
 /**
- * ������
- * ����
- *	priority	���ӵ����ȼ�
- *	movability	���ӵ��ƶ���ʽ
- *	type
+ *	棋子类
+ *	属性
+ *	priority	优先级
+ *	movability	是否可以移动
+ *	type		棋子种类
  */
 class Chess
 {
 public:
-	int priority = 0;/// �����ӵ����ȼ� 0Ϊ������������ӣ������������Ӵ�1��ʼ����
-	MOVABILITY movablity;/// �����ӵ��ƶ���ʽ
-	TYPE type;/// �����ӵ�����
-	SIDE side;/// �����ӵ���Ӫ
+	int priority = 0;/// 棋子的优先级 0代表特殊 其余数字越高优先级越高
+	MOVABILITY movablity;/// 是否可以移动
+	TYPE type;/// 棋子类型
+	SIDE side;/// 棋子的阵营
 	/**
-	 * ���캯��
-	 * Chess��Ĺ��캯��
-	 * @param[in]   chess	��������ӵ����
+	 * 构造函数
+	 * Chess类的构造函数
+	 * @param[in]   name	棋子的名字
 	 * @param[out]  outArgName output argument description.
-	 * @retval  OK  �ɹ�
-	 * @retval  ERROR   ����
-	 * @par ��ʶ��
-	 *      ����
-	 * @par ����
-	 *      ��
 	 * @par History:
-	 *      Bay 2020.04.08 ����\n
+	 *      Bay 2020.04.08 创建\n
 	 */
 	Chess(char name)
 	{
 		CASE cas;
-		check_case(name, cas);/// ���side
+		check_case(name, cas);/// 检查side
 		if (cas == upper)
 			side = R;
 		else if (cas == lower)
 			side = B;
 		else
-			throw "�����Ӳ��Ǵ�д��Сд��ĸ";
-		to_lower_case(name);/// �����Сд�����ڴ���
+			throw "不合法的棋子名称";
+		to_lower_case(name);/// 为了方便将棋子转为小写
 		switch (name) {
-		case 'f':///����
+		case 'f':/// 军旗
 			priority = 0;
 			movablity = inmovable;
 			type = flag;
 			break;
-		case 'd':/// ����
+		case 'd':/// 地雷
 			priority = 0;
 			movablity = inmovable;
 			type = landmine;
 			break;
-		case 'z':/// ը��
+		case 'z':/// 炸弹
 			priority = 0;
 			movablity = movable;
 			type = dynamite;
 			break;
-		case 'g':/// ����
+		case 'g':/// 工兵
 			priority = 1;
 			movablity = sapper;
 			type = troop;
 			break;
-		case 'p':/// �ų�
+		case 'p':/// 排长
 			priority = 2;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'l':/// ���
+		case 'l':/// 连长
 			priority = 3;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'y':/// Ӫ��
+		case 'y':/// 营长
 			priority = 4;
 			movablity = movable;
 			type = troop;
 			break;
-		case 't':/// �ų�
+		case 't':/// 团长
 			priority = 5;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'v':/// �ó�
+		case 'v':/// 旅长
 			priority = 6;
 			movablity = movable;
 			type = troop;
 			break;
-		case 's':/// ʦ��
+		case 's':/// 师长
 			priority = 7;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'j':/// ��
+		case 'j':/// 军长
 			priority = 8;
 			movablity = movable;
 			type = troop;
 			break;
-		case 'a':/// ˾��
+		case 'a':/// 司令
 			priority = 9;
 			movablity = movable;
 			type = troop;
@@ -183,24 +177,6 @@ public:
 
 
 };
-
-class Chessboard
-{
-	/**
-	 * ���캯��
-	 * Chessboard��Ĺ��캯��
-	 * @param[in]   inArgName input argument description.
-	 * @param[out]  outArgName output argument description.
-	 * @retval  OK  �ɹ�
-	 * @retval  ERROR   ����
-	 * @par ��ʶ��
-	 *      ����
-	 * @par ����
-	 *      ��
-	 * @par History:
-	 *      Bay 2020.04.08 ����\n
-	 */
-	Chessboard();
 
 /**
  * 某个方向上路线的信息
@@ -597,4 +573,18 @@ public:
 			right_down = { false, kNone };
 		}
 	}
+};
+
+
+class Chessboard
+{
+	/**
+	 * 棋盘信息
+	 * Chessboard类的构造函数
+	 * @param[in]   inArgName input argument description.
+	 * @param[out]  outArgName output argument description.
+	 * @par History:
+	 *      Bay 2020.04.08 创建\n
+	 */
+	Chessboard();
 };
