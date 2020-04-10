@@ -21,7 +21,6 @@ void test_Chess()
 	cout << "movability: " << chess.movablity << endl;
 	cout << "type: " << chess.type << endl;
 	cout << "side: " << chess.side << endl;
-
 }
 
 int test_main()
