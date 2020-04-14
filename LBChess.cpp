@@ -113,7 +113,7 @@ bool LBChess::tie(int x,int y) {
 vector<pair<int, int>>LBChess::get(pair<int, int>pos) {
 	vector<pair<int, int>>result;
 	if (abs(board[pos.first][pos.second]) == BLANK || abs(board[pos.first][pos.second]) == FLAG || abs(board[pos.first][pos.second]) == DI ||
-		SHANJIE.find(position2int(pos.first, pos.second)) != SHANJIE.end())  //[大本营无法移动：暗棋规则]
+		SHANJIE.count(position2int(pos.first, pos.second)) )  //[大本营无法移动：暗棋规则]
 		return result;
 	//公路线，考虑周围八个位置
 	for(int i=-1;i<2;i++)
@@ -124,12 +124,12 @@ vector<pair<int, int>>LBChess::get(pair<int, int>pos) {
 			int new_col = pos.second + j;
 			if (new_row < 0 || new_row>12 || new_col < 0 || new_col>4)    //不可移动到界外
 				continue;
-			if (SHANJIE.find(position2int(pos.first, pos.second)) == SHANJIE.end())   //不可移动到山界
+			if (SHANJIE.count(position2int(pos.first, pos.second)))   //不可移动到山界
 				continue; 
-			if (i != 0 && j != 0 && XINGYING.find(position2int(pos.first, pos.second)) == XINGYING.end() &&
-				XINGYING.find(position2int(new_row, new_col)) == XINGYING.end())//斜方向上移动必须有一个在行营
+			if (i != 0 && j != 0 && !XINGYING.count(position2int(pos.first, pos.second)) &&
+				!XINGYING.count(position2int(new_row, new_col)))//斜方向上移动必须有一个在行营
 				continue;
-			if (XINGYING.find(position2int(new_row, new_col)) != XINGYING.end() && board[new_row][new_col] != BLANK)//如果移动到行营，行营不可以有棋子
+			if (XINGYING.count(position2int(new_row, new_col)) && board[new_row][new_col] != BLANK)//如果移动到行营，行营不可以有棋子
 				continue;
 			result.push_back(make_pair(new_row, new_col));
 		}
