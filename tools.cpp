@@ -49,5 +49,5 @@ bool isnumeric(char ch)
 */
 int position2int(int x, int y) 
 { 
-    return x * 13 + y; 
+    return x *5 + y; 
 };

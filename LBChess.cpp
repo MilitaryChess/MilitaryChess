@@ -12,7 +12,7 @@
 * @date			2020.04.13
 * @version		0.0.1
 */
-int end(const array<array<int, 5>, 13>& board)
+int if_end(const array<array<int, 5>, 13>& board)
 {
 	//判断军旗是否被吃
 	bool FlagR = false, FlagB = false;
@@ -70,6 +70,32 @@ bool LBChess::tie(int x, int y) {
 	return(x >= 0 && y >= 0 && x <= 12 && y <= 4 && _tie[x][y] == 1);
 }
 
+/**
+* @file       LBChess.cpp
+* @brief      根据移动的起点终点，修改棋盘board，并判断走完一步后棋局是否结束
+* @author     zjx
+* @date        2020.4.25
+* @param[in]   start_end_point   起点与终点坐标
+* @param[out]  如果和局返回0，否则返回赢家R代表-1，B代表1，如果没有结束返回2
+* @par history
+		zjx于2020.4.25创建\n
+*/
+int LBChess::modify_board(pair<pair<int, int>, pair<int, int>> start_end_point) {
+	int result = attack(board[start_end_point.first.first][start_end_point.first.second],
+		board[start_end_point.second.first][start_end_point.second.second]);
+	if (result == -1)
+		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
+	else if(result==0)
+	{
+		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
+		board[start_end_point.second.first][start_end_point.second.second] = BLANK;
+	}
+	else {
+		board[start_end_point.second.first][start_end_point.second.second] = board[start_end_point.first.first][start_end_point.first.second];
+		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
+	}
+	return if_end(board);
+}
 /**
 * @file       LBChess.cpp
 * @brief      得到某一位置棋子可以走的所有位置

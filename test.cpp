@@ -55,5 +55,6 @@ void test_move(const int row, const int col, const char s[])
 }
 int main()
 {
-	test_move(2,1,"5/1Pg2/1gg11/212/s1g11/jvg11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
+	//test_move(2,1,"5/1Pg2/1gg11/212/s1g11/jvg11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
+	test_move(5,2, "ppdfd/5/11g11/1t1t1/11g11/11g11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
 }

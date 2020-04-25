@@ -131,6 +131,10 @@ private:
 public:
 	LBChess() { board = {}; };//全零
 	LBChess(const array<array<int, 5>, 13>& data) { board = data; };
+	array<array<int, 5>, 13>& get_board() {
+		return board;
+	}
+	int modify_board(pair<pair<int, int>, pair<int, int>> start_end_point);
 	//get函数
 	vector<pair<int, int>> get(pair<int, int>pos);
 	//ncn串的转化相关
