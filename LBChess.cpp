@@ -2,25 +2,26 @@
 #include<array>
 #include <queue>
 #include <vector>
+#include <algorithm>
 #include <iomanip>
 /**
 * @file			LBChess.cpp
-* @brief        ÅĞ¶ÏÊÇ·ñ½áÊø
-* @param[in]    ÆåÅÌÊı×é
-* @param[out]   Èç¹ûºÍ¾Ö·µ»Ø0£¬·ñÔò·µ»ØÓ®¼ÒR´ú±í-1£¬B´ú±í1£¬Èç¹ûÃ»ÓĞ½áÊø·µ»Ø2
+* @brief        åˆ¤æ–­æ˜¯å¦ç»“æŸ
+* @param[in]    æ£‹ç›˜æ•°ç»„
+* @param[out]   å¦‚æœå’Œå±€è¿”å›0ï¼Œå¦åˆ™è¿”å›èµ¢å®¶Rä»£è¡¨-1ï¼ŒBä»£è¡¨1ï¼Œå¦‚æœæ²¡æœ‰ç»“æŸè¿”å›2
 * @author       zzh
 * @date			2020.04.13
 * @version		0.0.1
 */
-int if_end(const array<array<int, 5>, 13>& board)
+int end(const array<array<int, 5>, 13>& board)
 {
-	//ÅĞ¶Ï¾üÆìÊÇ·ñ±»³Ô
+	//åˆ¤æ–­å†›æ——æ˜¯å¦è¢«åƒ
 	bool FlagR = false, FlagB = false;
-	//ÅĞ¶ÏÊÇ·ñ´æÔÚ¿ÉÒÔÒÆ¶¯µÄÁ¦Á¿
+	//åˆ¤æ–­æ˜¯å¦å­˜åœ¨å¯ä»¥ç§»åŠ¨çš„åŠ›é‡
 	bool live_R = false, live_B = false;
 	for (int i = 0; i < 13; i++)
 		for (int j = 0; j < 5; j++) {
-			if (board[i][j] == FLAG)//BÊÇÕıÊı£¬RÊÇ¸ºÊı
+			if (board[i][j] == FLAG)//Bæ˜¯æ­£æ•°ï¼ŒRæ˜¯è´Ÿæ•°
 				FlagB = true;
 			else if (board[i][j] == -FLAG)
 				FlagR = true;
@@ -31,9 +32,9 @@ int if_end(const array<array<int, 5>, 13>& board)
 		}
 	if (!FlagB)  return R;
 	if (!FlagR)  return B;
-	if (!live_B && !live_R)//ºÍ¾Ö
+	if (!live_B && !live_R)//å’Œå±€
 		return 0;
-	if (live_B && live_R)//Î´½áÊø
+	if (live_B && live_R)//æœªç»“æŸ
 		return 2;
 	return live_B ? B : R;
 }
@@ -41,25 +42,25 @@ int if_end(const array<array<int, 5>, 13>& board)
 
 /**
 * @file			LBChess.cpp
-* @brief        ¸ù¾İÆå×ÓµÈ¼¶ÅĞ¶Ï¹¥»÷Çé¿ö
-* @param[in]    src : ¹¥»÷Õß dst : ¹¥»÷Ä¿±ê
-* @param[out]   Í¬¹éÓÚ¾¡·µ»Ø0£¬¹¥»÷³É¹¦·µ»Ø1£¬¹¥»÷Ê§°Ü·µ»Ø - 1
+* @brief        æ ¹æ®æ£‹å­ç­‰çº§åˆ¤æ–­æ”»å‡»æƒ…å†µ
+* @param[in]    src : æ”»å‡»è€… dst : æ”»å‡»ç›®æ ‡
+* @param[out]   åŒå½’äºå°½è¿”å›0ï¼Œæ”»å‡»æˆåŠŸè¿”å›1ï¼Œæ”»å‡»å¤±è´¥è¿”å› - 1
 * @author       zzh
 * @date			2020.04.13
 * @version		0.0.1
 */
 int attack(int src, int dst)
 {
-	if (abs(src) == DI || abs(src) == FLAG || src * dst >= 0) // ¹¥»÷Õß²»ÄÜÊÇµØÀ×»ò¾üÆì»ò¿Õ°×£¬Ë«·½²»ÄÜÊÇÍ¬Ò»ÑÕÉ«£¬·ñÔò±¨´í
-		cout << "·Ç·¨µÄ¹¥»÷Õß" << endl;
+	if (abs(src) == DI || abs(src) == FLAG || src * dst >= 0) // æ”»å‡»è€…ä¸èƒ½æ˜¯åœ°é›·æˆ–å†›æ——æˆ–ç©ºç™½ï¼ŒåŒæ–¹ä¸èƒ½æ˜¯åŒä¸€é¢œè‰²ï¼Œå¦åˆ™æŠ¥é”™
+		cout << "éæ³•çš„æ”»å‡»è€…" << endl;
 	src = abs(src); dst = abs(dst);
-	if (dst == ZHA or src == ZHA)  // Õ¨µ¯±ØÈ»Í¬¹éÓÚ¾¡
+	if (dst == ZHA or src == ZHA)  // ç‚¸å¼¹å¿…ç„¶åŒå½’äºå°½
 		return 0;
-	if (dst == DI)  // ¹¤±øÅÅµØÀ×£¬·ñÔòÍ¬¹éÓÚ¾¡
+	if (dst == DI)  // å·¥å…µæ’åœ°é›·ï¼Œå¦åˆ™åŒå½’äºå°½
 		return src == GONG ? 1 : 0;
-	if (src == dst)  // ÏàÍ¬ÔòÍ¬¹éÓÚ¾¡
+	if (src == dst)  // ç›¸åŒåˆ™åŒå½’äºå°½
 		return 0;
-	if (dst == FLAG)  // ¾üÆì×îÈõ
+	if (dst == FLAG)  // å†›æ——æœ€å¼±
 		return 1;
 	return src > dst ? 1 : -1;
 }
@@ -72,67 +73,41 @@ bool LBChess::tie(int x, int y) {
 
 /**
 * @file       LBChess.cpp
-* @brief      ¸ù¾İÒÆ¶¯µÄÆğµãÖÕµã£¬ĞŞ¸ÄÆåÅÌboard£¬²¢ÅĞ¶Ï×ßÍêÒ»²½ºóÆå¾ÖÊÇ·ñ½áÊø
-* @author     zjx
-* @date        2020.4.25
-* @param[in]   start_end_point   ÆğµãÓëÖÕµã×ø±ê
-* @param[out]  Èç¹ûºÍ¾Ö·µ»Ø0£¬·ñÔò·µ»ØÓ®¼ÒR´ú±í-1£¬B´ú±í1£¬Èç¹ûÃ»ÓĞ½áÊø·µ»Ø2
-* @par history
-		zjxÓÚ2020.4.25´´½¨\n
-*/
-int LBChess::modify_board(pair<pair<int, int>, pair<int, int>> start_end_point) {
-	int result = attack(board[start_end_point.first.first][start_end_point.first.second],
-		board[start_end_point.second.first][start_end_point.second.second]);
-	if (result == -1)
-		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
-	else if(result==0)
-	{
-		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
-		board[start_end_point.second.first][start_end_point.second.second] = BLANK;
-	}
-	else {
-		board[start_end_point.second.first][start_end_point.second.second] = board[start_end_point.first.first][start_end_point.first.second];
-		board[start_end_point.first.first][start_end_point.first.second] = BLANK;
-	}
-	return if_end(board);
-}
-/**
-* @file       LBChess.cpp
-* @brief      µÃµ½Ä³Ò»Î»ÖÃÆå×Ó¿ÉÒÔ×ßµÄËùÓĞÎ»ÖÃ
+* @brief      å¾—åˆ°æŸä¸€ä½ç½®æ£‹å­å¯ä»¥èµ°çš„æ‰€æœ‰ä½ç½®
 * @author     zjx
 * @date        2020.4.14
-* @param[in]   pos    Î»ÖÃ×ø±ê
-* @param[out]  result   ËùÓĞ¿Éµ½´ïÎ»ÖÃ
+* @param[in]   pos    ä½ç½®åæ ‡
+* @param[out]  result   æ‰€æœ‰å¯åˆ°è¾¾ä½ç½®
 * @par history
-		zjxÓÚ2020.4.14´´½¨\n
+		zjxäº2020.4.14åˆ›å»º\n
 */
 vector<pair<int, int>>LBChess::get(pair<int, int>pos) {
 	vector<pair<int, int>>result;
 	if (abs(board[pos.first][pos.second]) == BLANK || abs(board[pos.first][pos.second]) == FLAG || abs(board[pos.first][pos.second]) == DI ||
-		SHANJIE.count(position2int(pos.first, pos.second)))  //[´ó±¾ÓªÎŞ·¨ÒÆ¶¯£º°µÆå¹æÔò]
+		SHANJIE.count(position2int(pos.first, pos.second)))  //[å¤§æœ¬è¥æ— æ³•ç§»åŠ¨ï¼šæš—æ£‹è§„åˆ™]
 		return result;
-	//¹«Â·Ïß£¬¿¼ÂÇÖÜÎ§°Ë¸öÎ»ÖÃ
+	//å…¬è·¯çº¿ï¼Œè€ƒè™‘å‘¨å›´å…«ä¸ªä½ç½®
 	for (int i = -1; i < 2; i++)
 		for (int j = -1; j < 2; j++) {
 			if (i == 0 && j == 0)
 				continue;
 			int new_row = pos.first + i;
 			int new_col = pos.second + j;
-			if (new_row < 0 || new_row>12 || new_col < 0 || new_col>4)    //²»¿ÉÒÆ¶¯µ½½çÍâ
+			if (new_row < 0 || new_row>12 || new_col < 0 || new_col>4)    //ä¸å¯ç§»åŠ¨åˆ°ç•Œå¤–
 				continue;
-			if (SHANJIE.count(position2int(pos.first, pos.second)))   //²»¿ÉÒÆ¶¯µ½É½½ç
+			if (SHANJIE.count(position2int(new_row, new_col)))   //ä¸å¯ç§»åŠ¨åˆ°å±±ç•Œ
 				continue;
 			if (i != 0 && j != 0 && !XINGYING.count(position2int(pos.first, pos.second)) &&
-				!XINGYING.count(position2int(new_row, new_col)))//Ğ±·½ÏòÉÏÒÆ¶¯±ØĞëÓĞÒ»¸öÔÚĞĞÓª
+				!XINGYING.count(position2int(new_row, new_col)))//æ–œæ–¹å‘ä¸Šç§»åŠ¨å¿…é¡»æœ‰ä¸€ä¸ªåœ¨è¡Œè¥
 				continue;
-			if (XINGYING.count(position2int(new_row, new_col)) && board[new_row][new_col] != BLANK)//Èç¹ûÒÆ¶¯µ½ĞĞÓª£¬ĞĞÓª²»¿ÉÒÔÓĞÆå×Ó
+			if (XINGYING.count(position2int(new_row, new_col)) && board[new_row][new_col] != BLANK)//å¦‚æœç§»åŠ¨åˆ°è¡Œè¥ï¼Œè¡Œè¥ä¸å¯ä»¥æœ‰æ£‹å­
 				continue;
 			if (board[new_row][new_col] != 0 && board[pos.first][pos.second] != 0 && board[new_row][new_col] * board[pos.first][pos.second] > 0)
 				continue;
 			result.push_back(make_pair(new_row, new_col));
 		}
 
-	//ÌúÂ·Ïß£¬¿¼ÂÇÖ±ÏßÂ·¾¶£¬Èç¹ûÊÇ¹¤±ø£¬Ê¹ÓÃ¹¤±øµÄÑ°Â·Ëã·¨
+	//é“è·¯çº¿ï¼Œè€ƒè™‘ç›´çº¿è·¯å¾„ï¼Œå¦‚æœæ˜¯å·¥å…µï¼Œä½¿ç”¨å·¥å…µçš„å¯»è·¯ç®—æ³•
 	if (!tie(pos.first, pos.second))
 		return result;
 	if (abs(board[pos.first][pos.second]) == GONG)
@@ -146,9 +121,9 @@ vector<pair<int, int>>LBChess::get(pair<int, int>pos) {
 				while (true) {
 					new_pos.first = new_pos.first + direct[i][0];
 					new_pos.second = new_pos.second + direct[i][1];
-					if (!tie(new_pos.first, new_pos.second))  //·ÇÌúÂ·×ø±ê
+					if (!tie(new_pos.first, new_pos.second))  //éé“è·¯åæ ‡
 						break;
-					if (board[new_pos.first][new_pos.second] * board[pos.first][pos.second] > 0)  //Í¬É«ÕÚµ²
+					if (board[new_pos.first][new_pos.second] * board[pos.first][pos.second] > 0)  //åŒè‰²é®æŒ¡
 						break;
 					result.push_back(new_pos);
 					if (board[new_pos.first][new_pos.second] * board[pos.first][pos.second] < 0)
@@ -162,27 +137,27 @@ vector<pair<int, int>>LBChess::get(pair<int, int>pos) {
 
 /**
 * @file			LBChess.cpp
-* @brief        ·µ»ØÌúÂ·ÏßÉÏ£¬¹¤±ø¿ÉÒÔµ½´ïµÄËùÓĞÎ»ÖÃ
-* @param[in]    ¹¤±øÎ»ÖÃpair<int, int>, ¿ÉÒÔµ½´ïÎ»ÖÃµÄvector£¬ÒıÓÃ´«Èë
-* @param[out]   ÎŞ(¿ÉÒÔµ½´ïÎ»ÖÃµÄ·µ»ØÓÉÒıÓÃµÄvector´ø³ö
+* @brief        è¿”å›é“è·¯çº¿ä¸Šï¼Œå·¥å…µå¯ä»¥åˆ°è¾¾çš„æ‰€æœ‰ä½ç½®
+* @param[in]    å·¥å…µä½ç½®pair<int, int>, å¯ä»¥åˆ°è¾¾ä½ç½®çš„vectorï¼Œå¼•ç”¨ä¼ å…¥
+* @param[out]   æ— (å¯ä»¥åˆ°è¾¾ä½ç½®çš„è¿”å›ç”±å¼•ç”¨çš„vectorå¸¦å‡º
 * @author       ssc
 * @date			2020.04.14
 * @version		0.0.2
 */
 void LBChess::_get_gong(pair<int, int>pos, vector<pair<int, int>>& res)
 {
-	/*º¯ÊıË¼Â·£¬Ê¹ÓÃBFS½øĞĞÑ°Â·£¬Èç¹ûÏÂÒ»¸öÎ»ÖÃÊÇ¼º·½»òÕßÒÑ¾­Ì½Ë÷»òÕßÊÇ¹«Â·Ïß£¬ÔòÍ£Ö¹Ì½Ë÷
-	 Èç¹ûÊÇÌúÂ·Ïß£¬Ôò¼ÓÈë¶ÓÁĞ£¬µÈ´ıËÑË÷
-	 ´Ó¶ÓÁĞÖĞ³ö¶ÓÁĞ£¬½øĞĞÉÏÏÂ×óÓÒËÑË÷
+	/*å‡½æ•°æ€è·¯ï¼Œä½¿ç”¨BFSè¿›è¡Œå¯»è·¯ï¼Œå¦‚æœä¸‹ä¸€ä¸ªä½ç½®æ˜¯å·±æ–¹æˆ–è€…å·²ç»æ¢ç´¢æˆ–è€…æ˜¯å…¬è·¯çº¿ï¼Œåˆ™åœæ­¢æ¢ç´¢
+	 å¦‚æœæ˜¯é“è·¯çº¿ï¼Œåˆ™åŠ å…¥é˜Ÿåˆ—ï¼Œç­‰å¾…æœç´¢
+	 ä»é˜Ÿåˆ—ä¸­å‡ºé˜Ÿåˆ—ï¼Œè¿›è¡Œä¸Šä¸‹å·¦å³æœç´¢
 	*/
 	//cout <<"testget_gong   "<< pos.first << "  " << pos.second << endl;
-	int group;//¹¤±øÊÇÄÄ·½ÕóÓª
-	//if (RAILWAY.count(position2int(pos.first, pos.second)) == 0 || abs(board[pos.first][pos.second]) != GONG) //·ÇÌúÂ·Ïß»òÕßÃ»ÓĞ¹¤±øÔò·µ»Ø
+	int group;//å·¥å…µæ˜¯å“ªæ–¹é˜µè¥
+	//if (RAILWAY.count(position2int(pos.first, pos.second)) == 0 || abs(board[pos.first][pos.second]) != GONG) //éé“è·¯çº¿æˆ–è€…æ²¡æœ‰å·¥å…µåˆ™è¿”å›
 		//return;
 	if (board[pos.first][pos.second] > 0)
 		group = 1;
 	else
-		group = -1;//±£Ö¤¼º·½µÄ×Ö*group>0,¶Ô·½µÄ*group<0
+		group = -1;//ä¿è¯å·±æ–¹çš„å­—*group>0,å¯¹æ–¹çš„*group<0
 	int temp[13][5] = {
 		{0, 0, 0, 0, 0},
 		{1, 1, 1, 1, 1},
@@ -196,17 +171,17 @@ void LBChess::_get_gong(pair<int, int>pos, vector<pair<int, int>>& res)
 		{1, 0, 0, 0, 1},
 		{1, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1},
-		{0, 0, 0, 0, 0} };//ÄÚÖÃÌúÂ·ÏßµØÍ¼£¬ÎªÁË¼Ó¿ìÔËĞĞËÙ¶È
+		{0, 0, 0, 0, 0} };//å†…ç½®é“è·¯çº¿åœ°å›¾ï¼Œä¸ºäº†åŠ å¿«è¿è¡Œé€Ÿåº¦
 	for (int i = 0; i < 13; i++)
 		for (int j = 0; j < 5; j++)
 		{
 			if (temp[i][j] == 0)
 				continue;
 			if (board[i][j] * group > 0)
-				temp[i][j] = -1;//×Ô¼ºÈËÖÃ-1
+				temp[i][j] = -1;//è‡ªå·±äººç½®-1
 			if (board[i][j] * group < 0)
-				temp[i][j] = 2;//µĞÈËÖÃ2
-		}//ÖØÖÃµØÍ¼£¬¹«Â·ÏßÎ»ÖÃÊÇ0£¬ÌúÂ·Ïß¿Õ°×µØ·½Îª0£¬×Ô¼ºÎ»ÖÃÎª1£¬µĞÈËÎ»ÖÃÎª2
+				temp[i][j] = 2;//æ•Œäººç½®2
+		}//é‡ç½®åœ°å›¾ï¼Œå…¬è·¯çº¿ä½ç½®æ˜¯0ï¼Œé“è·¯çº¿ç©ºç™½åœ°æ–¹ä¸º0ï¼Œè‡ªå·±ä½ç½®ä¸º1ï¼Œæ•Œäººä½ç½®ä¸º2
 
 	vector<pair<int, int>>result;
 	/*cout << "testget_gong   " << endl;
@@ -217,20 +192,20 @@ void LBChess::_get_gong(pair<int, int>pos, vector<pair<int, int>>& res)
 	}*/
 	queue<pair<int, int>> Q;
 	Q.push(pos);
-	pair<int, int> current, a;//ÁÙÊ±±äÁ¿£¬¼ÇÂ¼ÏÖÔÚµÄÎ»ÖÃ
+	pair<int, int> current, a;//ä¸´æ—¶å˜é‡ï¼Œè®°å½•ç°åœ¨çš„ä½ç½®
 	while (Q.size() > 0)
 	{
 		current = Q.front();
-		Q.pop();//³ö¶ÓÁĞ£¬È»ºó¼ÇÂ¼
+		Q.pop();//å‡ºé˜Ÿåˆ—ï¼Œç„¶åè®°å½•
 		//cout << "testget_gong   " << current.first << "  " << current.second << endl;
-		result.push_back(current);//½øÈëresultÖĞ£¬´ú±í¿ÉÒÔ×ßµ½
-		temp[current.first][current.second] = -1;//´ú±íÒÑ·ÃÎÊ¹ı
+		result.push_back(current);//è¿›å…¥resultä¸­ï¼Œä»£è¡¨å¯ä»¥èµ°åˆ°
+		temp[current.first][current.second] = -1;//ä»£è¡¨å·²è®¿é—®è¿‡
 		if (current.first + 1 < 13) {
 			if (temp[current.first + 1][current.second] == 1)
-				Q.push(make_pair(current.first + 1, current.second));//Èç¹ûÊÇÌúÂ·£¬¼ÓÈë¶ÓÁĞ£¬µÈ×ÅÏÂ´Î·ÃÎÊ
+				Q.push(make_pair(current.first + 1, current.second));//å¦‚æœæ˜¯é“è·¯ï¼ŒåŠ å…¥é˜Ÿåˆ—ï¼Œç­‰ç€ä¸‹æ¬¡è®¿é—®
 			else if (temp[current.first + 1][current.second] == 2)
-				result.push_back(make_pair(current.first + 1, current.second));//Èç¹ûÊÇµĞÈË£¬¾Í¿ÉÒÔ×ßµ½Õâ¸öÎ»ÖÃ£¬²»ÄÜ¼ÌĞø
-			//Èç¹ûÊÇ¹«Â·£¬¼º·½£¬»òÕßÒÑ¾­Ì½Ë÷£¬Ôò½áÊø
+				result.push_back(make_pair(current.first + 1, current.second));//å¦‚æœæ˜¯æ•Œäººï¼Œå°±å¯ä»¥èµ°åˆ°è¿™ä¸ªä½ç½®ï¼Œä¸èƒ½ç»§ç»­
+			//å¦‚æœæ˜¯å…¬è·¯ï¼Œå·±æ–¹ï¼Œæˆ–è€…å·²ç»æ¢ç´¢ï¼Œåˆ™ç»“æŸ
 		}
 		if (current.second + 1 < 5) {
 			if (temp[current.first][current.second + 1] == 1)
@@ -251,17 +226,21 @@ void LBChess::_get_gong(pair<int, int>pos, vector<pair<int, int>>& res)
 				result.push_back(make_pair(current.first, current.second - 1));
 		}
 	}
-	result.erase(result.begin());//µÚÒ»¸öÔªËØÊÇ´«ÈëµÄpos,ÒÆ³ı
-	res.insert(res.end(), result.begin(), result.end());
-	unique(res.begin(), res.end());
+	result.erase(result.begin());//ç¬¬ä¸€ä¸ªå…ƒç´ æ˜¯ä¼ å…¥çš„pos,ç§»é™¤
+	vector<pair<int, int>> res_tmp = res;
+	res.clear();//resç»“æœèµ‹ç»™æ–°çš„vectorï¼Œå¹¶æ¸…ç©º
+	for (auto p = res_tmp.begin(); p != res_tmp.end(); p++)
+		if (_tie[(*p).first][(*p).second] == 0)
+			res.push_back(make_pair((*p).first, (*p).second));//æ‰¾åˆ°æ‰€æœ‰éé“è·¯çº¿ä½ç½®ï¼Œè¿›å…¥vectorï¼Œä¸ºäº†å»æ‰é‡å¤
+	res.insert(res.end(), result.begin(), result.end());//æŠŠåœ¨é“è·¯çº¿å¯åˆ°è¾¾ä½ç½®è¿›å…¥ï¼Œ
 	//cout << "testget_gong   " << result.size() << endl;
 }
 
 /**
 * @file			LBChess.cpp
-* @brief        ²é¿´ÆåÅÌµ±Ç°×´Ì¬
+* @brief        æŸ¥çœ‹æ£‹ç›˜å½“å‰çŠ¶æ€
 * @param[in]    /
-* @param[out]   ´òÓ¡ÆåÅÌ×´Ì¬£¬Ã»ÓĞ×ÓµÄÎ»ÖÃÎª0£¬ÓĞ×ÓµÄÎ»ÖÃÏÔÊ¾ÄÚ²¿Êı×éµÄÖµ£¬ĞĞÓªÓÃ*±ê³ö
+* @param[out]   æ‰“å°æ£‹ç›˜çŠ¶æ€ï¼Œæ²¡æœ‰å­çš„ä½ç½®ä¸º0ï¼Œæœ‰å­çš„ä½ç½®æ˜¾ç¤ºå†…éƒ¨æ•°ç»„çš„å€¼ï¼Œè¡Œè¥ç”¨*æ ‡å‡º
 * @author       ssc
 * @date			2020.04.18
 * @version		0.0.1
@@ -279,4 +258,31 @@ void LBChess::seetheboard()
 		}
 		cout << endl;
 	}
+}
+
+
+/**
+* @file			LBChess.cpp
+* @brief        æŸ¥çœ‹è¾“å…¥ä¸€æ–¹ï¼Œè¿”å›æ‰€æœ‰å¯ä»¥ç§»åŠ¨çš„ä½ç½®
+* @param[in]    B = 1ï¼Œå¯¹æ–¹é»‘æ–¹å¤§å†™å­—æ¯    R = -1 æœ¬æ–¹çº¢æ–¹å°å†™å­—æ¯
+* @param[out]   pair<pair<int, int>, pair<int, int>>ï¼Œè¿”å›æ‰€æœ‰å¯ä»¥ç§»åŠ¨çš„ç‚¹å¯¹
+* @author       ssc
+* @date			2020.04.26
+* @version		0.0.1
+*/
+vector<pair<pair<int, int>, pair<int, int>>>LBChess::get_all_canreach(const int state)
+{
+	vector<pair<pair<int, int>, pair<int, int>>> v;
+	for (int i=0;i<13;i++)
+		for (int j = 0; j < 5; j++)//å¾ªç¯æ•´ä¸ªæ£‹ç›˜
+		{	
+			if (state*board[i][j] > 0)//ç›¸ä¹˜å¤§äº0ï¼Œä»£è¡¨æœ‰å­ï¼Œä¸”æ˜¯æˆ‘æ–¹
+			{
+				pair<int, int> pos_now = make_pair(i, j);//å½“å‰ä½ç½®çš„pairï¼Œæå‰ç”Ÿæˆï¼Œå‡å°‘ä»¥åæ¯æ¬¡ç”Ÿæˆçš„å¼€é”€
+				vector<pair<int, int>> tmp = get(pos_now);//è¿”å›pos_nowå¯ä»¥åˆ°è¾¾çš„æ‰€æœ‰ä½ç½®
+				for (auto p = tmp.begin(); p != tmp.end(); p++)
+					v.push_back(make_pair(pos_now, *p));//ç”±pos_nowå’Œè¿­ä»£å™¨pæ‰€æŒ‡çš„å€¼æ„æˆçš„pairï¼Œè¿›å…¥vector
+			}
+		}
+	return v;
 }
