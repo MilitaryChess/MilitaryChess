@@ -4,24 +4,24 @@
 #include <array>
 #include<unordered_set>
 using namespace std;
-/*¹ØÓÚÊı¾İ»ú¹¹¶¨ÒåµÄ¼òÒªËµÃ÷
-²ÎÕÕÁËÖú½ÌµÄ´úÂë
-array<array<int, 5>, 13>´ú±íÕû¸öÆåÅÌ
-Êı×Ö´ú±íÆå×Ó£¬Ò²±ê¼ÇÁËÆå×ÓµÄÓÅÏÈ¼¶£¬ºìºÚË«·½ÓÃÊı×ÖµÄÕı¸ººÅ±íÊ¾
+/*å…³äºæ•°æ®æœºæ„å®šä¹‰çš„ç®€è¦è¯´æ˜
+å‚ç…§äº†åŠ©æ•™çš„ä»£ç 
+array<array<int, 5>, 13>ä»£è¡¨æ•´ä¸ªæ£‹ç›˜
+æ•°å­—ä»£è¡¨æ£‹å­ï¼Œä¹Ÿæ ‡è®°äº†æ£‹å­çš„ä¼˜å…ˆçº§ï¼Œçº¢é»‘åŒæ–¹ç”¨æ•°å­—çš„æ­£è´Ÿå·è¡¨ç¤º
 
-¹ØÓÚ´ó±¾Óª¡¢ĞĞÓª¡¢É½½ç£¬¹«Â·»¹ÊÇÌúÂ·£¬ÉèÖÃÁËÒ»ÏµÁĞÈ«¾Ö³£±äÁ¿unorder_set´æ´¢£¬***Ö»ĞèÒª´æ´¢Ò»´Î£¬¼õÉÙÁËÄÚ´æÏûºÄ***
-Ê¹ÓÃÊ±Ö»ĞèÒª²éÑ¯ if (XINGYING.count(position(x,y) != 0) ¾Í±íÃ÷£¨x£¬y)×ø±êÊÇĞĞÓª
-                 if (RAILWAY.count(position(x,y) != 0) ¾Í±íÃ÷£¨x£¬y)×ø±êÊÇÌúÂ·
-				 position(x,y)ÊÇ×Ô¼ºĞ´µÄº¯Êı£¬Ê¹ÓÃÊ±ĞèÒª°üº¬Í·ÎÄ¼ş"tools.h",ÓÃÀ´°Ñ£¨x,y)×ª»¯Îªint,ÒòÎªunordered_set²»½ÓÊÜpair<int,int>ÀàĞÍ
-ÓÉÓÚunorder_setµÄÄÚ²¿Éè¼ÆÀàËÆÓÚ¹şÏ£±í£¬ËùÒÔ²éÑ¯µÄÊ±¼ä¸´ÔÓ¶ÈÔ¼ÎªO£¨1£©
+å…³äºå¤§æœ¬è¥ã€è¡Œè¥ã€å±±ç•Œï¼Œå…¬è·¯è¿˜æ˜¯é“è·¯ï¼Œè®¾ç½®äº†ä¸€ç³»åˆ—å…¨å±€å¸¸å˜é‡unorder_setå­˜å‚¨ï¼Œ***åªéœ€è¦å­˜å‚¨ä¸€æ¬¡ï¼Œå‡å°‘äº†å†…å­˜æ¶ˆè€—***
+ä½¿ç”¨æ—¶åªéœ€è¦æŸ¥è¯¢ if (XINGYING.count(position(x,y) != 0) å°±è¡¨æ˜ï¼ˆxï¼Œy)åæ ‡æ˜¯è¡Œè¥
+                 if (RAILWAY.count(position(x,y) != 0) å°±è¡¨æ˜ï¼ˆxï¼Œy)åæ ‡æ˜¯é“è·¯
+				 position(x,y)æ˜¯è‡ªå·±å†™çš„å‡½æ•°ï¼Œä½¿ç”¨æ—¶éœ€è¦åŒ…å«å¤´æ–‡ä»¶"tools.h",ç”¨æ¥æŠŠï¼ˆx,y)è½¬åŒ–ä¸ºint,å› ä¸ºunordered_setä¸æ¥å—pair<int,int>ç±»å‹
+ç”±äºunorder_setçš„å†…éƒ¨è®¾è®¡ç±»ä¼¼äºå“ˆå¸Œè¡¨ï¼Œæ‰€ä»¥æŸ¥è¯¢çš„æ—¶é—´å¤æ‚åº¦çº¦ä¸ºOï¼ˆ1ï¼‰
 
-¹ØÓÚÉÏÏÂ×óÓÒÄÄ¸ö·½ÏòÓĞÂ·£¬
-1.Ö»ÓĞ´ó±¾Óª¿ÉÒÔ8¸ö·½ÏòÓĞÂ·
-2.×îÖĞ¼äÄÇÒ»ĞĞÖ»ÓĞÉÏÏÂ2¸ö·½Ïò
-3.ÆäÓà¶¼ÊÇÔÚÆåÅÌ·¶Î§ÄÚ×î¶àÓĞ4¸ö·½Ïò
+å…³äºä¸Šä¸‹å·¦å³å“ªä¸ªæ–¹å‘æœ‰è·¯ï¼Œ
+1.åªæœ‰å¤§æœ¬è¥å¯ä»¥8ä¸ªæ–¹å‘æœ‰è·¯
+2.æœ€ä¸­é—´é‚£ä¸€è¡Œåªæœ‰ä¸Šä¸‹2ä¸ªæ–¹å‘
+3.å…¶ä½™éƒ½æ˜¯åœ¨æ£‹ç›˜èŒƒå›´å†…æœ€å¤šæœ‰4ä¸ªæ–¹å‘
 */
 //ppdfd / plldz / z3y / yt1ty / s1g1s / jvgva / 5 / JVGVA / S1G1S / YT1TY / Z1G1Y / PLLDZ / PPDFD
-//¶ÔÓ¦
+//å¯¹åº”
 /*
  -5  -5  -2  -1  -2
  -5  -6  -6  -2  -3
@@ -37,24 +37,24 @@ array<array<int, 5>, 13>´ú±íÕû¸öÆåÅÌ
   5   6   6   2   3
   5   5   2   1   2
 */
-struct Chess {//Æå×ÓÀà
-	string name;//Ãû×Ö
-	int num;//ÓÅÏÈ¼¶
-	int n;//×ÜÊıÁ¿
+struct Chess {//æ£‹å­ç±»
+	string name;//åå­—
+	int num;//ä¼˜å…ˆçº§
+	int n;//æ€»æ•°é‡
 };
-const int BLANK = 0;  // ¿Õ°×
-const int FLAG = 1;  // ¾üÆì
-const int DI = 2; //µØÀ×
-const int ZHA = 3;  // Õ¨µ¯
-const int GONG = 4;  // ¹¤±ø
-const int PAI = 5;  // ÅÅ³¤
-const int LIAN = 6;  // Á¬³¤
-const int YING = 7;  // Óª³¤
-const int TUAN = 8;  // ÍÅ³¤
-const int LV = 9;  // ÂÃ³¤
-const int SHI = 10;  // Ê¦³¤
-const int JUN = 11;  // ¾ü³¤
-const int SI = 12;  // Ë¾Áî
+const int BLANK = 0;  // ç©ºç™½
+const int FLAG = 1;  // å†›æ——
+const int DI = 2; //åœ°é›·
+const int ZHA = 3;  // ç‚¸å¼¹
+const int GONG = 4;  // å·¥å…µ
+const int PAI = 5;  // æ’é•¿
+const int LIAN = 6;  // è¿é•¿
+const int YING = 7;  // è¥é•¿
+const int TUAN = 8;  // å›¢é•¿
+const int LV = 9;  // æ—…é•¿
+const int SHI = 10;  // å¸ˆé•¿
+const int JUN = 11;  // å†›é•¿
+const int SI = 12;  // å¸ä»¤
 
 const Chess CHESS[13] = {
 	Chess{"BLANK", 0, -1},
@@ -73,22 +73,22 @@ const Chess CHESS[13] = {
 };
 
 //[0,13]
-//Àı£ººÚ·½ÅÅ³¤µÄ±àÂëÖµ = B * pai£¬ ºì·½¾ü³¤µÄ±àÂëÖµ = R * jun
-const int B = 1; //¶Ô·½ºÚ·½´óĞ´×ÖÄ¸
-const int R = -1; //±¾·½ºì·½Ğ¡Ğ´×ÖÄ¸
+//ä¾‹ï¼šé»‘æ–¹æ’é•¿çš„ç¼–ç å€¼ = B * paiï¼Œ çº¢æ–¹å†›é•¿çš„ç¼–ç å€¼ = R * jun
+const int B = 1; //å¯¹æ–¹é»‘æ–¹å¤§å†™å­—æ¯
+const int R = -1; //æœ¬æ–¹çº¢æ–¹å°å†™å­—æ¯
 
-//ÒÔ×óÏÂ½ÇÎªÔ­µã
-//ĞĞÓª×ø±ê
+//ä»¥å·¦ä¸‹è§’ä¸ºåŸç‚¹
+//è¡Œè¥åæ ‡
 const unordered_set<int> XINGYING = { position2int(2, 1), position2int(2, 3), position2int(3, 2), position2int(4, 1), position2int(4, 3), position2int(8, 1),
 position2int(8, 3), position2int(9, 2), position2int(10, 1), position2int(10, 3) };  
 
-//É½½ç×ø±ê
+//å±±ç•Œåæ ‡
 const unordered_set<int> SHANJIE = { position2int(6, 1), position2int(6, 3) };  
 
-//´ó±¾Óª×ø±ê
+//å¤§æœ¬è¥åæ ‡
 const unordered_set<int> DABENYING = { position2int(0, 1), position2int(0, 3), position2int(12, 1), position2int(12, 3) };  
 
-//ÌúÂ·Ïß×ø±ê
+//é“è·¯çº¿åæ ‡
 const unordered_set<int> RAILWAY = { position2int(1, 0), position2int(1, 1), position2int(1, 2), position2int(1, 3), position2int(1, 4),
 position2int(2, 0),position2int(2, 4),position2int(3, 0),position2int(3, 4),position2int(4, 0),position2int(4, 4),
 position2int(5, 0), position2int(5, 1), position2int(5, 2), position2int(5, 3), position2int(5, 4),
@@ -97,18 +97,18 @@ position2int(7, 0), position2int(7, 1), position2int(7, 2), position2int(7, 3), 
 position2int(8, 0), position2int(8, 4), position2int(9, 0), position2int(9, 4), position2int(10, 0),position2int(10, 4),
 position2int(11, 0), position2int(11, 1), position2int(11, 2), position2int(11, 3), position2int(11, 4), };  
 
-//Ê¹ÓÃÊ±¿ÉÒÔ²éÑ¯Æå×ÓÎ»ÖÃÊÇ·ñÔÚĞĞÓª¡¢É½½ç¡¢´ó±¾ÓªÀï£¬ÌúÂ·Ïß»òÕß¹«Â·ÏßÉÏ£¨²»ÔÚÌúÂ·Ïß£¬¾ÍÔÚ¹«Â·Ïß£©£¬unordered_set²ÉÓÃ¹şÏ£±íÉèÖÃ£¬²éÑ¯Ê±¼ä¸´ÔÓ¶È½üËÆO£¨1£©
-//***.count() == 0? ÓÃ·¨¿ÉÒÔ°Ù¶È
+//ä½¿ç”¨æ—¶å¯ä»¥æŸ¥è¯¢æ£‹å­ä½ç½®æ˜¯å¦åœ¨è¡Œè¥ã€å±±ç•Œã€å¤§æœ¬è¥é‡Œï¼Œé“è·¯çº¿æˆ–è€…å…¬è·¯çº¿ä¸Šï¼ˆä¸åœ¨é“è·¯çº¿ï¼Œå°±åœ¨å…¬è·¯çº¿ï¼‰ï¼Œunordered_seté‡‡ç”¨å“ˆå¸Œè¡¨è®¾ç½®ï¼ŒæŸ¥è¯¢æ—¶é—´å¤æ‚åº¦è¿‘ä¼¼Oï¼ˆ1ï¼‰
+//***.count() == 0? ç”¨æ³•å¯ä»¥ç™¾åº¦
 
 /*
-LBChessÀà£º
-Î¬»¤ÆåÅÌĞÅÏ¢
-È·±£ĞĞ×ÓºÍ²¼ÕóµÄÕıÈ·ĞÔ
-È·±£¹¥»÷µÄÕıÈ·ĞÔ
-µ«²»¸ºÔğ¿ØÖÆÓÎÏ·Á÷³Ì
-ÔÚcommon.hÖĞ
+LBChessç±»ï¼š
+ç»´æŠ¤æ£‹ç›˜ä¿¡æ¯
+ç¡®ä¿è¡Œå­å’Œå¸ƒé˜µçš„æ­£ç¡®æ€§
+ç¡®ä¿æ”»å‡»çš„æ­£ç¡®æ€§
+ä½†ä¸è´Ÿè´£æ§åˆ¶æ¸¸æˆæµç¨‹
+åœ¨common.hä¸­
 */
-class LBChess//ÆåÅÌÀà 
+class LBChess//æ£‹ç›˜ç±» 
 {
 private:
 	array<array<int, 5>, 13> board;
@@ -126,22 +126,26 @@ private:
 		{1, 0, 0, 0, 1},
 		{1, 1, 1, 1, 1},
 		{0, 0, 0, 0, 0} };
-	bool tie(int x, int y);   //ÊÇ·ñÔÚÌúÂ·ÏßÉÏ
+	bool tie(int x, int y);   //æ˜¯å¦åœ¨é“è·¯çº¿ä¸Š
 	void _get_gong(pair<int, int> pos, vector<pair<int, int>>& result);
 public:
-	LBChess() { board = {}; };//È«Áã
+	LBChess() { board = {}; };//å…¨é›¶
 	LBChess(const array<array<int, 5>, 13>& data) { board = data; };
-	array<array<int, 5>, 13>& get_board() {
-		return board;
-	}
-	int modify_board(pair<pair<int, int>, pair<int, int>> start_end_point);
-	//getº¯Êı
+	//getå‡½æ•°
 	vector<pair<int, int>> get(pair<int, int>pos);
-	//ncn´®µÄ×ª»¯Ïà¹Ø
-	void parse_ncn(string ncn, int& cnt, int& total_cnt);// ncn´®½âÎöÎªÆåÅÌÊı×é¡¢Ë«·½Ã»ÓĞ³Ô×ÓµÄ×ßÆå²½Êı¡¢µ±Ç°µÄ²Ù×÷Êı
+	//ncnä¸²çš„è½¬åŒ–ç›¸å…³
+	void parse_ncn(string ncn, int& cnt, int& total_cnt);// ncnä¸²è§£æä¸ºæ£‹ç›˜æ•°ç»„ã€åŒæ–¹æ²¡æœ‰åƒå­çš„èµ°æ£‹æ­¥æ•°ã€å½“å‰çš„æ“ä½œæ•°
 	string board_to_ncn(const array<array<int, 5>, 13>& board);
 	array<array<int, 2>, 2> parse_ncn_move(string move);
 	string move_to_ncn(const array<array<int, 2>, 2>& arr);
-	//µ÷ÊÔÏà¹Ø
+	//è°ƒè¯•ç›¸å…³
 	void seetheboard();
+	//æ¥å£ï¼Œä¼ å‡ºæ£‹å±€
+	//æ¥æ”¶æ£‹å­çš„ç§»åŠ¨ï¼Œä¸¤ä¸ªpair
+
+	//è¿”å›board
+	//è¿”å›ä¸€æ–¹æ‰€æœ‰å¯ç§»åŠ¨çš„ä½ç½®
+	vector<pair<pair<int, int>, pair<int, int>>>get_all_canreach(const int state);
+	//ä¼ å…¥ä¸¤ä¸ªä½ç½®ï¼Œå†…éƒ¨æ”¹å˜æ£‹ç›˜ï¼Œè¿”å›æ˜¯å¦ç»“æŸ
 };
+
