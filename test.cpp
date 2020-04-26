@@ -5,9 +5,9 @@ using namespace std;
 
 /**
 * @file			test.cpp
-* @brief        ²âÊÔncnºÍÆåÅÌ×ª»¯
-* @param[in]    Ncn´®
-* @param[out]   ´òÓ¡ÆåÅÌ×´Ì¬£¬Ã»ÓĞ×ÓµÄÎ»ÖÃÎª0£¬ÓĞ×ÓµÄÎ»ÖÃÏÔÊ¾ÄÚ²¿Êı×éµÄÖµ£¬ĞĞÓªÓÃ*±ê³ö
+* @brief        æµ‹è¯•ncnå’Œæ£‹ç›˜è½¬åŒ–
+* @param[in]    Ncnä¸²
+* @param[out]   æ‰“å°æ£‹ç›˜çŠ¶æ€ï¼Œæ²¡æœ‰å­çš„ä½ç½®ä¸º0ï¼Œæœ‰å­çš„ä½ç½®æ˜¾ç¤ºå†…éƒ¨æ•°ç»„çš„å€¼ï¼Œè¡Œè¥ç”¨*æ ‡å‡º
 * @author       ssc
 * @date			2020.04.18
 * @version		0.0.1
@@ -22,9 +22,9 @@ void test_ncn(const char s[])
 
 /**
 * @file			test.cpp
-* @brief        ²âÊÔÆå×Ó¿ÉÒÔ´ïµ½µÄÎ»ÖÃ
-* @param[in]    Ncn´®
-* @param[out]   ´òÓ¡ÆåÅÌ×´Ì¬£¬Æå×ÓÏÖÔÚËùÔÚµÄÎ»ÖÃÓÃ*±ê³ö£¬¿ÉÒÔ×ßµÄÎ»ÖÃÖÃ1£¬²»ÄÜµ½µÄÎ»ÖÃÖÃ0
+* @brief        æµ‹è¯•æ£‹å­å¯ä»¥è¾¾åˆ°çš„ä½ç½®
+* @param[in]    Ncnä¸²
+* @param[out]   æ‰“å°æ£‹ç›˜çŠ¶æ€ï¼Œæ£‹å­ç°åœ¨æ‰€åœ¨çš„ä½ç½®ç”¨*æ ‡å‡ºï¼Œå¯ä»¥èµ°çš„ä½ç½®ç½®1ï¼Œä¸èƒ½åˆ°çš„ä½ç½®ç½®0
 * @author       ssc
 * @date			2020.04.20
 * @version		0.0.1
@@ -34,27 +34,68 @@ void test_move(const int row, const int col, const char s[])
 	LBChess t;
 	vector<pair<int,int>>res;
 	int a = 0, b = 0;
-	t.parse_ncn(s, a, b);//ÊäÈëncn£¬×ª»¯³ÉÆåÅÌ
-	t.seetheboard();//ÏÔÊ¾Æå¾ÖÑùÊ½
+	t.parse_ncn(s, a, b);//è¾“å…¥ncnï¼Œè½¬åŒ–æˆæ£‹ç›˜
+	t.seetheboard();//æ˜¾ç¤ºæ£‹å±€æ ·å¼
 	cout << endl << endl;
-	res = t.get(make_pair(row, col));//µÃµ½¿ÉÒÔµ½µÄÎ»ÖÃ£¬´æÈëres
+	res = t.get(make_pair(row, col));//å¾—åˆ°å¯ä»¥åˆ°çš„ä½ç½®ï¼Œå­˜å…¥res
 	char r[13][5] ;
 	int i, j;
 	for (i = 0; i < 13; i++)
 		for (j = 0; j < 5; j++)
 			r[i][j] = '0';
-	r[row][col] = '*';//ÉèÖÃÒ»¸ö¶şÎ¬Êı×é£¬³õÊ¼È«ÊÇ0£¬È»ºóµ±Ç°Î»ÖÃÖÃ*
+	r[row][col] = '*';//è®¾ç½®ä¸€ä¸ªäºŒç»´æ•°ç»„ï¼Œåˆå§‹å…¨æ˜¯0ï¼Œç„¶åå½“å‰ä½ç½®ç½®*
 	for (auto p = res.begin(); p != res.end(); p++)
-		r[(*p).first][(*p).second] = '1';//·µ»ØµÄvectorÖĞ¶ÔÓ¦µÄÎ»ÖÃ£¬ÔÚ¶şÎ¬Êı×éÖĞÖÃ1
-	//´òÓ¡¶şÎ¬Êı×é
+		r[(*p).first][(*p).second] = '1';//è¿”å›çš„vectorä¸­å¯¹åº”çš„ä½ç½®ï¼Œåœ¨äºŒç»´æ•°ç»„ä¸­ç½®1
+	//æ‰“å°äºŒç»´æ•°ç»„
 	for (i = 0; i < 13; i++) {
 		for (j = 0; j < 5; j++)
 			cout << r[i][j] << "  ";
 		cout << endl;
 	}
 }
+
+//è¾“å‡ºpair
+void displaypair(pair<int, int> a)
+{
+	cout << "<" << a.first << "," << a.second << ">";
+}
+/**
+* @file			test.cpp
+* @brief        æµ‹è¯•æŸæ–¹æ‰€æœ‰å¯è¾¾åˆ°ä½ç½®
+* @param[in]    state
+* @param[out]   
+* @author       ssc
+* @date			2020.04.26
+* @version		0.0.1
+*/
+void test_getallreach(const int state, const char s[])
+{
+	LBChess t;
+	vector<pair<pair<int, int>, pair<int, int>>>res;
+	int a = 0, b = 0;
+	t.parse_ncn(s, a, b);//è¾“å…¥ncnï¼Œè½¬åŒ–æˆæ£‹ç›˜
+	t.seetheboard();//æ˜¾ç¤ºæ£‹å±€æ ·å¼
+	cout << endl << endl;
+	res = t.get_all_canreach(state);//å¾—åˆ°å¯ä»¥åˆ°çš„ä½ç½®ï¼Œå­˜å…¥res
+	for (auto p=res.begin();p!=res.end()-1;p++)
+		for (auto q = p+1; q != res.end(); q++)
+			if (*p == *q)
+			{
+				cout << "æœ‰é‡å¤";
+				displaypair((*p).first);
+				displaypair((*p).second);
+				cout << endl;
+			}
+	cout << "é‡å¤æ€§æ£€éªŒå®Œæ¯•ï¼Œæ— é‡å¤" << endl;
+	for (auto p = res.begin(); p != res.end(); p++)
+	{
+		displaypair((*p).first);
+		displaypair((*p).second);
+		cout << endl;
+	}
+}
 int main()
 {
-	//test_move(2,1,"5/1Pg2/1gg11/212/s1g11/jvg11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
-	test_move(5,2, "ppdfd/5/11g11/1t1t1/11g11/11g11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
+	//test_getallreach(-1,"2p2/L1p1G/pgpG1/212/s1g11/jvg11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
+	test_move(1, 1, "2p2/Lg1G1/pgpG1/212/s1g11/jvg11/5/JVGVA/S1G1S/YT1TY/Z1G1Y/PLLDZ/PPDFD");
 }
